@@ -1,8 +1,16 @@
-# roman_numerals
+# Roman Numerals Project
 Application to transform roman numerals to integers.
 
-### Task
+### Objective
 Write a Ruby module to transform roman numerals to integers. Let's keep it all Ruby for now (instead of Rails), and use Rspec for testing.
+
+### Examples
+
+VII -> 7
+
+XV1 -> 16
+
+LX -> 60
 
 ### Follow these steps to submit your code:
 
