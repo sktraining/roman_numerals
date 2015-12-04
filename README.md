@@ -8,7 +8,7 @@ Write a Ruby module to transform roman numerals to integers. Let's keep it all R
 
 VII -> 7
 
-XV1 -> 16
+XVI -> 16
 
 LX -> 60
 
