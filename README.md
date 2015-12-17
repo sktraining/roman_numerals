@@ -1,4 +1,3 @@
-s
 # Roman Numerals Project
 Application to transform roman numerals to integers.
 
