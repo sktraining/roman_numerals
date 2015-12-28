@@ -1,5 +1,5 @@
-require_relative 'roman_numerals.rb'
-describe RomanNumerals do
+require_relative 'numeral_converter.rb'
+describe NumeralConverter do
   describe '.convert_roman_to_arabic' do
     context 'given I' do
       let(:input) { 'I' }
