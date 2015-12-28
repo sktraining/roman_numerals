@@ -19,4 +19,9 @@ module NumeralConverter
     end
     total
   end
+
+  def self.convert_arabic_to_roman(arabic_numeral)
+    roman_numeral = 'V' * (arabic_numeral / 5)
+    roman_numeral += 'I' * (arabic_numeral % 5)
+  end
 end

@@ -51,4 +51,26 @@ describe NumeralConverter do
       specify { expect(described_class.convert_roman_to_arabic(input)).to eq(1000) }
     end
   end
+
+  describe '.convert_arabic_to_roman' do
+    context 'given 1' do
+      let (:input) { 1 }
+      specify { expect(described_class.convert_arabic_to_roman(input)).to eq('I') }
+    end
+
+    context 'given 2' do
+      let (:input) { 2 }
+      specify { expect(described_class.convert_arabic_to_roman(input)).to eq('II') }
+    end
+
+    context 'given 5' do
+      let (:input) { 5 }
+      specify { expect(described_class.convert_arabic_to_roman(input)).to eq('V') }
+    end
+
+    context 'given 6' do
+      let (:input) { 6 }
+      specify { expect(described_class.convert_arabic_to_roman(input)).to eq('VI') }
+    end
+  end
 end
