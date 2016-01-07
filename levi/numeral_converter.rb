@@ -31,11 +31,10 @@ module NumeralConverter
   }
 
   def self.convert_arabic_to_roman(arabic_numeral)
-    roman_numeral = ''
-    ARABIC_TO_ROMAN.keys.sort.reverse.each do |numeral|
-      roman_numeral += ARABIC_TO_ROMAN[numeral] * (arabic_numeral / numeral)
-      arabic_numeral = arabic_numeral % numeral
+    ARABIC_TO_ROMAN.keys.sort.reverse.inject('') do |roman_numeral, current_arabic|
+      roman_numeral += ARABIC_TO_ROMAN[current_arabic] * (arabic_numeral / current_arabic)
+      arabic_numeral = arabic_numeral % current_arabic
+      roman_numeral
     end
-    roman_numeral
   end
 end
