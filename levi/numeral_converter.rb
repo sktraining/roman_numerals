@@ -1,4 +1,4 @@
-module NumeralConverter
+class String
   ROMAN_TO_ARABIC = {
     'I' => 1,
     'V' => 5,
@@ -9,7 +9,8 @@ module NumeralConverter
     'M' => 1000
   }
 
-  def self.convert_roman_to_arabic(roman_numeral)
+  def to_arabic_numeral
+    roman_numeral = self
     total = 0
     roman_numeral.split('').each_with_index do |char, idx|
       arabic_value = ROMAN_TO_ARABIC[char]
@@ -19,7 +20,9 @@ module NumeralConverter
     end
     total
   end
+end
 
+class Fixnum
   ARABIC_TO_ROMAN = {
     1 => 'I',
     5 => 'V',
@@ -30,7 +33,8 @@ module NumeralConverter
     1000 => 'M'
   }
 
-  def self.convert_arabic_to_roman(arabic_numeral)
+  def to_roman_numeral
+    arabic_numeral = self
     ARABIC_TO_ROMAN.keys.sort.reverse.inject('') do |roman_numeral, current_arabic|
       roman_numeral += ARABIC_TO_ROMAN[current_arabic] * (arabic_numeral / current_arabic)
       arabic_numeral = arabic_numeral % current_arabic
