@@ -33,12 +33,31 @@ class Fixnum
     1000 => 'M'
   }
 
+  LEGAL_SUBTRAHENDS = {
+    1 => 'I'
+  }
+
   def to_roman_numeral
     arabic_numeral = self
     ARABIC_TO_ROMAN.keys.sort.reverse.inject('') do |roman_numeral, current_arabic|
       roman_numeral += ARABIC_TO_ROMAN[current_arabic] * (arabic_numeral / current_arabic)
       arabic_numeral = arabic_numeral % current_arabic
+
+      # check if remainder is greater than or equal than current minus next legal subtrahend
+      next_legal_subtrahend = next_legal_subtrahend(current_arabic)
+      if arabic_numeral >= (current_arabic - next_legal_subtrahend) && !arabic_numeral.zero?
+        # append subtrahend + current to roman_numerals
+        roman_numeral << ARABIC_TO_ROMAN[next_legal_subtrahend] + ARABIC_TO_ROMAN[current_arabic]
+        # subtract (current - subtrahend) from arabic
+        arabic_numeral -= (current_arabic - next_legal_subtrahend)
+      end
       roman_numeral
     end
+  end
+
+  private
+
+  def next_legal_subtrahend(arabic_numeral)
+    LEGAL_SUBTRAHENDS.keys.find{ |number| number < arabic_numeral } || 0
   end
 end

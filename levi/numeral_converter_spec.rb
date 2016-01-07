@@ -65,6 +65,11 @@ describe Fixnum do
       specify { expect(subject.to_roman_numeral).to eq('II') }
     end
 
+    context 'given 4' do
+      subject { 4 }
+      specify { expect(subject.to_roman_numeral).to eq('IV') }
+    end
+
     context 'given 5' do
       subject { 5 }
       specify { expect(subject.to_roman_numeral).to eq('V') }
@@ -73,6 +78,11 @@ describe Fixnum do
     context 'given 6' do
       subject { 6 }
       specify { expect(subject.to_roman_numeral).to eq('VI') }
+    end
+
+    context 'given 9' do
+      subject { 9 }
+      specify { expect(subject.to_roman_numeral).to eq('IX') }
     end
 
     context 'given 10' do
