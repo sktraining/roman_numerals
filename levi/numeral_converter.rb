@@ -20,8 +20,22 @@ module NumeralConverter
     total
   end
 
+  ARABIC_TO_ROMAN = {
+    1 => 'I',
+    5 => 'V',
+    10 => 'X',
+    50 => 'L',
+    100 => 'C',
+    500 => 'D',
+    1000 => 'M'
+  }
+
   def self.convert_arabic_to_roman(arabic_numeral)
-    roman_numeral = 'V' * (arabic_numeral / 5)
-    roman_numeral += 'I' * (arabic_numeral % 5)
+    roman_numeral = ''
+    ARABIC_TO_ROMAN.keys.sort.reverse.each do |numeral|
+      roman_numeral += ARABIC_TO_ROMAN[numeral] * (arabic_numeral / numeral)
+      arabic_numeral = arabic_numeral % numeral
+    end
+    roman_numeral
   end
 end
