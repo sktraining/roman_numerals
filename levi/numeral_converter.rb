@@ -33,9 +33,7 @@ class Fixnum
     1000 => 'M'
   }
 
-  LEGAL_SUBTRAHENDS = {
-    1 => 'I'
-  }
+  LEGAL_SUBTRAHENDS = [ 1 ]
 
   def to_roman_numeral
     arabic_numeral = self
@@ -58,6 +56,6 @@ class Fixnum
   private
 
   def next_legal_subtrahend(arabic_numeral)
-    LEGAL_SUBTRAHENDS.keys.find{ |number| number < arabic_numeral } || 0
+    LEGAL_SUBTRAHENDS.find{ |number| number < arabic_numeral } || 0
   end
 end
