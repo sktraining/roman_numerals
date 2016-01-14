@@ -9,10 +9,15 @@ class RomanNumeral
               'I' => 1
             }
   ROMAN_NUM.default = 0
+  INT_VALUES = ROMAN_NUM.to_a.sort_by { |roman, int| -int }
 
   def initialize(number)
     @number = number.respond_to?(:upcase) ? number.upcase : ""
     valid?
+  end
+
+  def to_s
+    @number 
   end
 
   def convert
@@ -26,6 +31,19 @@ class RomanNumeral
       last_char = char
     end
     running_total
+  end
+
+  def self.from_i(int)
+    if int
+      roman_answer = ''
+      INT_VALUES.each do |roman, value|
+        roman_answer << roman * (int/value)
+        int = int % value 
+      end
+      roman_answer
+    else
+      nil
+    end
   end
 
   private
