@@ -1,38 +1,79 @@
 require_relative "../roman_to_arabic_converter.rb"
 
 describe RomanToArabicConverter do
-  context "roman numeral is valid" do
-    context "roman numeral is one character" do
-      specify { expect(described_class.new("I").convert).to eq(1) }
-      specify { expect(described_class.new("V").convert).to eq(5) }
-      specify { expect(described_class.new("X").convert).to eq(10) }
-      specify { expect(described_class.new("L").convert).to eq(50) }
-      specify { expect(described_class.new("C").convert).to eq(100) }
-      specify { expect(described_class.new("D").convert).to eq(500) }
-      specify { expect(described_class.new("M").convert).to eq(1000) }
-    end
-    context "addition between roman numerals" do
-      specify { expect(described_class.new("CXI").convert).to eq(111) }
-      specify { expect(described_class.new("CCC").convert).to eq(300) }
-      specify { expect(described_class.new("DIX").convert).to eq(509) }
-    end
-    context "roman numerals that are two characters long" do
-      specify { expect(described_class.new("IV").convert).to eq(4) }
-      specify { expect(described_class.new("IX").convert).to eq(9) }
-      specify { expect(described_class.new("XL").convert).to eq(40) }
-      specify { expect(described_class.new("XC").convert).to eq(90) }
-      specify { expect(described_class.new("CD").convert).to eq(400) }
-      specify { expect(described_class.new("CM").convert).to eq(900) }
-    end
-    context "roman numerals that are complex" do
-      specify { expect(described_class.new("MCMXLIV").convert).to eq(1944)}
-      specify { expect(described_class.new("MMMMCCCXXI").convert).to eq(4321)}
-    end
-  end
+  describe "#convert" do
+    context "roman numeral is valid" do
+      context "roman numeral is one character" do
 
-  context "roman numeral is invalid" do
-    specify { expect{ described_class.new(123).convert }.to raise_error("input must be a string") }
-    specify { expect{ described_class.new("XIQ").convert }.to raise_error("invalid roman input") }
-    specify { expect{ described_class.new("BOGUS").convert }.to raise_error("invalid roman input") }
+        let(:input) { %w(I V X L C D M) }
+        let(:results) { [1, 5, 10, 50, 100, 500, 1000] }
+
+        specify do
+          aggregate_failures "converts to the correct arabic digit" do
+            Hash[input.zip(results)].each do |input, result|
+              expect(described_class.new(input.dup).convert).to eq(result)
+            end
+          end
+        end
+      end
+
+      context "addition between roman numerals" do
+        let(:input) { %w(CXI CCC DIX) }
+        let(:results) { [111, 300, 509] }
+
+        specify do
+          aggregate_failures "performs addition correctly" do
+            Hash[input.zip(results)].each do |input, result|
+              expect(described_class.new(input.dup).convert).to eq(result)
+            end
+          end
+        end
+      end
+
+      context "roman numerals that are two characters long" do
+        let(:input) { %w(IV IX XL XC CD CM) }
+        let(:results) { [4, 9, 40, 90, 400, 900] }
+
+        specify do
+          aggregate_failures "converts two-digit roman numerals to the correct arabic digit" do
+            Hash[input.zip(results)].each do |input, result|
+              expect(described_class.new(input.dup).convert).to eq(result)
+            end
+          end
+        end
+      end
+
+      context "roman numerals that are complex" do
+        let(:input) { %w(MCMXLIV MMMMCCCXXI) }
+        let(:results) { [1944, 4321] }
+
+        specify do
+          aggregate_failures "converts complex roman numerals to the correct arabic digit" do
+            Hash[input.zip(results)].each do |input, result|
+              expect(described_class.new(input.dup).convert).to eq(result)
+            end
+          end
+        end
+      end
+    end
+
+    context "roman numeral contains lowercase letters" do
+       let(:input) { %w(i v x l c d m mcmxLIV mmmMccCXxi) }
+        let(:results) { [1, 5, 10, 50, 100, 500, 1000, 1944, 4321] }
+
+        specify do
+          aggregate_failures "converts to the correct arabic digit" do
+            Hash[input.zip(results)].each do |input, result|
+              expect(described_class.new(input.dup).convert).to eq(result)
+            end
+          end
+        end
+    end
+
+    context "roman numeral is invalid" do
+      specify { expect{ described_class.new(123).convert }.to raise_error("input must be a string") }
+      specify { expect{ described_class.new("XIQ").convert }.to raise_error("invalid roman input") }
+      specify { expect{ described_class.new("BOGUS").convert }.to raise_error("invalid roman input") }
+    end
   end
 end
