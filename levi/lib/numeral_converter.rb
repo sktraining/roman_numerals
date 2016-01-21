@@ -36,26 +36,30 @@ class Fixnum
   LEGAL_SUBTRAHENDS = [ 100, 10, 1 ]
 
   def to_roman_numeral
+    legal_appendages = create_legal_appendages
     arabic_numeral = self
-    ARABIC_TO_ROMAN.keys.sort.reverse.inject('') do |roman_numeral, current_arabic|
-      roman_numeral += ARABIC_TO_ROMAN[current_arabic] * (arabic_numeral / current_arabic)
+    legal_appendages.keys.sort.reverse.inject('') do |roman_numeral, current_arabic|
+      roman_numeral << legal_appendages[current_arabic] * (arabic_numeral / current_arabic)
       arabic_numeral = arabic_numeral % current_arabic
-
-      # check if remainder is greater than or equal than current minus next legal subtrahend
-      next_legal_subtrahend = next_legal_subtrahend(current_arabic)
-      if arabic_numeral >= (current_arabic - next_legal_subtrahend) && !arabic_numeral.zero?
-        # append subtrahend + current to roman_numerals
-        roman_numeral << ARABIC_TO_ROMAN[next_legal_subtrahend] + ARABIC_TO_ROMAN[current_arabic]
-        # subtract (current - subtrahend) from arabic
-        arabic_numeral -= (current_arabic - next_legal_subtrahend)
-      end
       roman_numeral
     end
   end
 
   private
 
-  def next_legal_subtrahend(arabic_numeral)
-    LEGAL_SUBTRAHENDS.find{ |number| number < arabic_numeral } || 0
+  def create_legal_appendages
+    ARABIC_TO_ROMAN.inject(ARABIC_TO_ROMAN.clone) do |memo, (arabic, roman)|
+      next_legal_subtrahend = next_legal_subtrahend(arabic)
+      if next_legal_subtrahend
+        appendage = ARABIC_TO_ROMAN[next_legal_subtrahend] + roman
+        memo[arabic - next_legal_subtrahend] = appendage
+      end
+      memo
+    end
   end
+
+  def next_legal_subtrahend(arabic_numeral)
+    LEGAL_SUBTRAHENDS.find{ |number| number < arabic_numeral }
+  end
+
 end
