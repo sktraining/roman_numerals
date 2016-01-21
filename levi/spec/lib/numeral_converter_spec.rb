@@ -1,4 +1,5 @@
-require_relative 'numeral_converter.rb'
+require_relative '../../lib/numeral_converter.rb'
+
 describe String do
   describe '#to_arabic' do
     context 'given I' do
