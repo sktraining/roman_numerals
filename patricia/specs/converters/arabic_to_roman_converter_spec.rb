@@ -1,4 +1,4 @@
-require_relative "../arabic_to_roman_converter.rb"
+require_relative "../../converters/arabic_to_roman_converter.rb"
 
 describe ArabicToRomanConverter do
   describe "#convert" do

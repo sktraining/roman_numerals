@@ -1,4 +1,4 @@
-require_relative './modules/maps'
+require_relative '../modules/maps'
 
 class RomanToArabicConverter
 

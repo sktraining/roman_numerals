@@ -1,4 +1,4 @@
-require_relative './modules/maps'
+require_relative '../modules/maps'
 
 class ArabicToRomanConverter
   POSITIVE_INTEGER_VALIDATION_ERROR = "input must be a positive integer"
