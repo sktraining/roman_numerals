@@ -33,7 +33,7 @@ class Fixnum
     1000 => 'M'
   }
 
-  LEGAL_SUBTRAHENDS = [ 1 ]
+  LEGAL_SUBTRAHENDS = [ 100, 10, 1 ]
 
   def to_roman_numeral
     arabic_numeral = self

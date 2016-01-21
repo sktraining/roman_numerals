@@ -91,6 +91,11 @@ describe Fixnum do
       specify { expect(subject.to_roman_numeral).to eq('X') }
     end
 
+    context 'given 40' do
+      subject { 40 }
+      specify { expect(subject.to_roman_numeral).to eq('XL') }
+    end
+
     context 'given 50' do
       subject { 50 }
       specify { expect(subject.to_roman_numeral).to eq('L') }
@@ -99,6 +104,11 @@ describe Fixnum do
     context 'given 100' do
       subject { 100 }
       specify { expect(subject.to_roman_numeral).to eq('C') }
+    end
+
+    context 'given 400' do
+      subject { 400 }
+      specify { expect(subject.to_roman_numeral).to eq('CD') }
     end
 
     context 'given 500' do
