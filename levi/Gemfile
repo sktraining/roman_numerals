@@ -2,6 +2,7 @@
 source "https://rubygems.org"
 group :development do
   gem 'guard'
+  gem 'aws-sdk-core'
   gem 'rb-fsevent'
   gem 'rb-readline'
   gem 'guard-rspec', require: false
