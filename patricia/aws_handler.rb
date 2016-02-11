@@ -1,12 +1,8 @@
 require 'aws-sdk'
 
 class AWSHandler
-  def config
-    aws_config = JSON.load(File.read('config/aws.json'))
-    Aws.config.update({
-      region: 'us-east-1',
-      credentials: Aws::Credentials.new(aws_config['ACCESS_KEY_ID'], aws_config['SECRET_ACCESS_KEY'])
-    })
+  def self.instance
+    @instance ||= new
   end
 
   def read_file(bucket, key)
@@ -19,6 +15,17 @@ class AWSHandler
   end
 
   private
+  def initialize
+    config
+  end
+
+  def config
+    aws_config = JSON.load(File.read('config/aws.json'))
+    Aws.config.update({
+      region: 'us-east-1',
+      credentials: Aws::Credentials.new(aws_config['ACCESS_KEY_ID'], aws_config['SECRET_ACCESS_KEY'])
+    })
+  end
 
   def client
     @client ||= Aws::S3::Client.new

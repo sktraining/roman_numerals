@@ -2,7 +2,7 @@ require_relative '../aws_handler.rb'
 require 'aws-sdk'
 
 describe AWSHandler do
-  describe '#config' do
+  describe '.instance' do
     let(:access_key) { 'some-access-key' }
     let(:secret) { 'some-secret' }
     let(:creds_json) {
@@ -17,7 +17,7 @@ describe AWSHandler do
       allow(File).to receive(:read).with('config/aws.json') { creds_json }
       allow(Aws::Credentials).to receive(:new).with(access_key, secret) { aws_creds }
       allow(Aws.config).to receive(:update)
-      described_class.new.config
+      described_class.instance
     end
 
     specify { expect(Aws.config).to have_received(:update).with(region: 'us-east-1', credentials: aws_creds) }
