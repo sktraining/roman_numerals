@@ -4,7 +4,7 @@ describe AwsClient do
   describe '#retrieve_object' do
 
     let(:credentials) { double(:aws_credentials_object) }
-    let(:client) { double(:aws_client) }
+    let(:client) { double(:aws_client, get_object: nil) }
 
     before do
       allow(Aws::Credentials).to receive(:new).with('fooey access key',
