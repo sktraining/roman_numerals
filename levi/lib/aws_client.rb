@@ -9,4 +9,8 @@ class AwsClient
   def retrieve_object(params)
     @client.get_object(bucket: params[:bucket], key: params[:key])
   end
+
+  def put_object(params)
+    @client.put_object(bucket: params[:bucket], key: params[:key], body: params[:body])
+  end
 end
