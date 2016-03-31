@@ -1,13 +1,17 @@
 require 'csv'
 
-class CSVHandler
+class CSVConverter
   INVALID_CSV_ERROR = "input must be a valid csv file"
 
   def initialize(converter_klass)
     @converter_klass = converter_klass
   end
 
-  def write_converted(input_csv_path)
+  def convert_csv(input_csv)
+
+  end
+
+  def convert_csv_at_path(input_csv_path)
     validate_proper_encoding(input_csv_path)
     output_csv = CSV.generate do |csv|
       CSV.foreach(input_csv_path) do |row|
