@@ -8,7 +8,14 @@ class CSVConverter
   end
 
   def convert_csv(input_csv)
-
+    validate_proper_encoding(input_csv)
+    output_csv = CSV.generate do |csv|
+      CSV.parse(input_csv) do |row|
+        validate_csv_row(row)
+        converted_value = @converter_klass.new(CSV.parse(row, converters: :numeric)[0][0]).convert
+        csv << converted_value
+      end
+    end
   end
 
   def convert_csv_at_path(input_csv_path)
