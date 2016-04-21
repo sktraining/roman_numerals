@@ -10,7 +10,7 @@ class AWSHandler
   end
 
   def write_file(bucket, key, body)
-    obj = client.bucket(bucket).object(key)
+    obj = resource.bucket(bucket).object(key)
     obj.put(body: body)
   end
 
@@ -29,5 +29,9 @@ class AWSHandler
 
   def client
     @client ||= Aws::S3::Client.new
+  end
+
+  def resource
+    Aws::S3::Resource.new(region:'us-east-1')
   end
 end
